@@ -1,0 +1,13 @@
+{
+  "name": "hello-docker",
+  "version": "1.0.0",
+  "description": "Aplicação simples para praticar Dockerfile e docker compose",
+  "main": "app.js",
+  "scripts": {
+    "start": "node app.js",
+    "dev": "node --watch app.js"
+  },
+  "dependencies": {
+    "express": "^4.21.2"
+  }
+}
