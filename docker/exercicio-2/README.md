@@ -56,7 +56,7 @@ docker compose logs api
 
 ## Observações
 
-A API fica na porta 3001 do Mac. Se ela já estiver em uso, defina outra no `.env` (por exemplo, `API_PORT=3002`) e use essa porta nos `curl`.
+A API fica na porta 3001.
 
 O Postgres só usa `POSTGRES_USER`, `POSTGRES_PASSWORD` e `POSTGRES_DB` na primeira criação do volume.
 Se você mudar a senha no `.env` depois disso, a API não conecta mais: rode `docker compose down -v`
