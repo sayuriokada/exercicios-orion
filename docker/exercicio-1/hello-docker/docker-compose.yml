@@ -1,0 +1,12 @@
+services:
+  web:
+    build: .
+    ports:
+      - "3000:3000"
+    # Reinicia o app automaticamente ao editar arquivos (Node 18.11+)
+    command: ["node", "--watch", "app.js"]
+    volumes:
+      # Código local montado no container (edição em tempo real)
+      - .:/app
+      # Volume anônimo para preservar o node_modules instalado na imagem
+      - /app/node_modules
