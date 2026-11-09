@@ -50,8 +50,8 @@ curl http://localhost:3004/mensagens
 **2. Os dados aparecem na interface web**
 
 1. Abra <http://localhost:8080> (o painel leva alguns segundos para subir na primeira vez).
-2. Entre com o e-mail `senha@bootcamp.com.br` e a senha `orionsenhateste123#`.
-3. Abra o servidor **Desafio Extra**, que já vem cadastrado, e digite a senha do banco quando ela for pedida. Ela também é `orionsenhateste123#`.
+2. Entre com `PGADMIN_EMAIL` e `PGADMIN_PASSWORD` do `.env`.
+3. Abra o servidor **Desafio Extra**, que já vem cadastrado, e digite a senha `DB_PASS` do `.env` quando ela for pedida.
 4. Navegue até **Databases > appdb > Schemas > public > Tables > mensagens**.
 5. Clique com o botão direito na tabela e escolha **View/Edit Data > All Rows**.
 
