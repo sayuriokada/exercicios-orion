@@ -1,8 +1,0 @@
-# Dependências são instaladas dentro da imagem
-node_modules
-npm-debug.log
-
-# Nada disto é necessário para rodar a aplicação
-.dockerignore
-.DS_Store
-Dockerfile
