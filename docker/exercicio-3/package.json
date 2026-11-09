@@ -1,0 +1,17 @@
+{
+  "name": "api-db-compose",
+  "version": "1.0.0",
+  "description": "API e banco Postgres com ambientes dev e prod separados",
+  "main": "src/app.js",
+  "scripts": {
+    "start": "node src/app.js",
+    "dev": "nodemon --watch src src/app.js"
+  },
+  "dependencies": {
+    "express": "^4.21.2",
+    "pg": "^8.13.1"
+  },
+  "devDependencies": {
+    "nodemon": "^3.1.14"
+  }
+}
