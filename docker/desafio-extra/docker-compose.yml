@@ -1,0 +1,84 @@
+name: desafio-extra
+
+services:
+  api:
+    build: ./api
+    init: true # repassa o SIGTERM para o Node, assim o "down" encerra na hora
+    # Desenvolvimento: reinicia a API quando um arquivo de src/ muda
+    command: ["node", "--watch-path=src", "src/index.js"]
+    ports:
+      - "${API_PORT:-3004}:3000"
+    environment:
+      NODE_ENV: development
+      DB_HOST: db # nome do serviço abaixo, resolvido pelo DNS da rede interna
+      DB_PORT: 5432
+      DB_USER: ${DB_USER:?defina DB_USER no .env}
+      DB_PASS: ${DB_PASS:?defina DB_PASS no .env}
+      DB_NAME: ${DB_NAME:?defina DB_NAME no .env}
+    volumes:
+      - ./api/src:/app/src:ro # o código do host substitui o da imagem
+    depends_on:
+      db:
+        condition: service_healthy # espera o banco aceitar conexões, não só o container subir
+    networks:
+      - backend
+
+  db:
+    image: postgres:17-alpine
+    environment:
+      POSTGRES_USER: ${DB_USER:?defina DB_USER no .env}
+      POSTGRES_PASSWORD: ${DB_PASS:?defina DB_PASS no .env}
+      POSTGRES_DB: ${DB_NAME:?defina DB_NAME no .env}
+    volumes:
+      - db_data:/var/lib/postgresql/data
+    healthcheck:
+      # -h localhost força TCP: o servidor temporário da inicialização só escuta no socket
+      test: ["CMD-SHELL", "pg_isready -h localhost -U $$POSTGRES_USER -d $$POSTGRES_DB"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    # Sem "ports": o banco só é acessível de dentro da rede backend
+    networks:
+      - backend
+
+  pgadmin:
+    image: dpage/pgadmin4:9
+    environment:
+      PGADMIN_DEFAULT_EMAIL: ${PGADMIN_EMAIL:?defina PGADMIN_EMAIL no .env}
+      PGADMIN_DEFAULT_PASSWORD: ${PGADMIN_PASSWORD:?defina PGADMIN_PASSWORD no .env}
+    ports:
+      - "127.0.0.1:${PGADMIN_PORT:-8080}:80" # painel de administração: só acessível nesta máquina
+    configs:
+      - source: pgadmin_servers
+        target: /pgadmin4/servers.json # já deixa o servidor "db" cadastrado no painel
+    volumes:
+      - pgadmin_data:/var/lib/pgadmin
+    depends_on:
+      db:
+        condition: service_healthy
+    networks:
+      - backend
+
+configs:
+  pgadmin_servers:
+    content: |
+      {
+        "Servers": {
+          "1": {
+            "Name": "Desafio Extra",
+            "Group": "Servers",
+            "Host": "db",
+            "Port": 5432,
+            "MaintenanceDB": "${DB_NAME:?defina DB_NAME no .env}",
+            "Username": "${DB_USER:?defina DB_USER no .env}",
+            "SSLMode": "prefer"
+          }
+        }
+      }
+
+volumes:
+  db_data:
+  pgadmin_data:
+
+networks:
+  backend:
