@@ -1,0 +1,16 @@
+# Dependências são instaladas dentro da imagem
+node_modules
+npm-debug.log
+
+# Segredos nunca entram na imagem
+.env
+.env.*
+
+# Nada disto é necessário para rodar a aplicação
+.git
+.gitignore
+.dockerignore
+.DS_Store
+Dockerfile
+docker-compose*.yml
+README.md
