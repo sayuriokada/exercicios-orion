@@ -1,0 +1,30 @@
+# O "name" separa containers, rede e volume do ambiente de dev
+name: exercicio-3-prod
+
+services:
+  api:
+    extends:
+      file: docker-compose.base.yml
+      service: api
+    build:
+      context: .
+      target: prod
+    image: exercicio-3-api:prod
+    restart: unless-stopped
+    ports:
+      - "${API_PORT_PROD:-3003}:3000"
+    # Sem volumes: o código é o que foi copiado para a imagem no build
+
+  db:
+    extends:
+      file: docker-compose.base.yml
+      service: db
+    restart: unless-stopped
+    # Sem "ports": o banco só é acessível de dentro da rede backend
+    # O volume nomeado herdado da base guarda os dados do Postgres, não o código
+
+volumes:
+  db_data:
+
+networks:
+  backend:

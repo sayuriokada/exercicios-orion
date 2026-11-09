@@ -1,0 +1,33 @@
+# Configuração comum aos dois ambientes, reaproveitada com "extends".
+# Não rode este arquivo diretamente: use docker-compose.dev.yml ou docker-compose.prod.yml.
+services:
+  api:
+    init: true # repassa o SIGTERM para o processo, assim o "down" encerra na hora
+    environment:
+      DB_HOST: db # nome do serviço, resolvido pelo DNS da rede interna
+      DB_PORT: 5432
+      DB_USER: ${DB_USER:?defina DB_USER no .env}
+      DB_PASS: ${DB_PASS:?defina DB_PASS no .env}
+      DB_NAME: ${DB_NAME:?defina DB_NAME no .env}
+    depends_on:
+      db:
+        condition: service_healthy
+    networks:
+      - backend
+
+  db:
+    image: postgres:17-alpine
+    environment:
+      POSTGRES_USER: ${DB_USER:?defina DB_USER no .env}
+      POSTGRES_PASSWORD: ${DB_PASS:?defina DB_PASS no .env}
+      POSTGRES_DB: ${DB_NAME:?defina DB_NAME no .env}
+    volumes:
+      - db_data:/var/lib/postgresql/data
+    healthcheck:
+      # -h localhost força TCP: o servidor temporário da inicialização só escuta no socket
+      test: ["CMD-SHELL", "pg_isready -h localhost -U $$POSTGRES_USER -d $$POSTGRES_DB"]
+      interval: 5s
+      timeout: 3s
+      retries: 10
+    networks:
+      - backend
