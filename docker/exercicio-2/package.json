@@ -1,0 +1,13 @@
+{
+  "name": "api-db-compose",
+  "version": "1.0.0",
+  "description": "API e banco Postgres conectados com docker compose",
+  "main": "app.js",
+  "scripts": {
+    "start": "node app.js"
+  },
+  "dependencies": {
+    "express": "^4.21.2",
+    "pg": "^8.13.1"
+  }
+}
