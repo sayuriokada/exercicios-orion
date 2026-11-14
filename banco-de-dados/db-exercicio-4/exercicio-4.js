@@ -2,7 +2,7 @@
 // Usa a coleção "posts" do Exercício 3 (banco: blog).
 
 // Update: adicionar o campo "comentarios"  em um post
-db.posts.updateOne(
+const resultado = db.posts.updateOne(
   { titulo: "Arquitetura da felicidade" },
   {
     $set: {
@@ -13,6 +13,9 @@ db.posts.updateOne(
     }
   }
 );
+
+console.log("--- Resultado do updateOne ---");
+console.log(JSON.stringify(resultado, null, 2));
 
 // Consulta dentro de um array: posts que têm a tag "neurociência"
 console.log("--- Posts com a tag 'neurociência' ---");
