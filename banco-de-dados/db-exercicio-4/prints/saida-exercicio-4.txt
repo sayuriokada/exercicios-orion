@@ -1,0 +1,64 @@
+--- Resultado do updateOne ---
+{
+  "acknowledged": true,
+  "insertedId": null,
+  "matchedCount": 1,
+  "modifiedCount": 1,
+  "upsertedCount": 0
+}
+--- Posts com a tag 'neurociência' ---
+[
+  {
+    "_id": "6af8b32ac68f9d50458da485",
+    "titulo": "Neuroarquitetura: A Neurociência no Ambiente Construído",
+    "autor": "Vilma Villarouco, Nicole Ferrer, Ana Paula Guedes, Julia Fonseca, Marie Monique Paiva",
+    "conteudo": "A conexão entre a neurociência e a arquitetura",
+    "tags": [
+      "arquitetura",
+      "neurociência",
+      "psicologia"
+    ]
+  }
+]
+--- Posts do autor 'Alain de Botton' ---
+[
+  {
+    "_id": "6af8b32ac68f9d50458da484",
+    "titulo": "Arquitetura da felicidade",
+    "autor": "Alain de Botton",
+    "conteudo": "Uma viagem pela filosofia e pela psicologia da arquitetura",
+    "comentarios": [
+      {
+        "autor": "Marina",
+        "texto": "Adorei a abordagem sobre espaço e bem-estar.",
+        "nota": 5
+      },
+      {
+        "autor": "Paulo",
+        "texto": "Boa indicação de leitura.",
+        "nota": 4
+      }
+    ]
+  }
+]
+--- Posts com comentário da Marina ---
+[
+  {
+    "_id": "6af8b32ac68f9d50458da484",
+    "titulo": "Arquitetura da felicidade",
+    "autor": "Alain de Botton",
+    "conteudo": "Uma viagem pela filosofia e pela psicologia da arquitetura",
+    "comentarios": [
+      {
+        "autor": "Marina",
+        "texto": "Adorei a abordagem sobre espaço e bem-estar.",
+        "nota": 5
+      },
+      {
+        "autor": "Paulo",
+        "texto": "Boa indicação de leitura.",
+        "nota": 4
+      }
+    ]
+  }
+]
