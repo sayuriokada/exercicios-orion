@@ -26,7 +26,7 @@ services:
     ports:
       # Expõe a porta 5432 do container para a porta 5432 da sua máquina
       # Formato: <porta_maquina>:<porta_container>
-      - "5432:5432"
+      - "127.0.0.1:5432:5432"
     volumes:
       # Cria um "volume nomeado" para persistir os dados do postgres
       # Mesmo se você rodar 'docker compose down', seus dados não serão perdidos.
@@ -51,7 +51,7 @@ services:
       MONGO_INITDB_ROOT_PASSWORD: orion_admin_pass
     ports:
       # Expõe a porta 27017 do container para a porta 27017 da sua máquina
-      - "27017:27017"
+      - "127.0.0.1:27017:27017"
     volumes:
       # Cria um volume nomeado para persistir os dados do mongo
       - mongo_data:/data/db
